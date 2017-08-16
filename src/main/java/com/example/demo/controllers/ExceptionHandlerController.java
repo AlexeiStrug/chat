@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * Created by igorek2312 on 26.01.17.
- */
 @ControllerAdvice
 public class ExceptionHandlerController {
 
@@ -49,9 +46,9 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(dto, error.getHttpStatus());
     }
 
-    /*@ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     @ResponseBody
     public Exception handleException(Exception e) {
        return e;
-    }*/
+    }
 }

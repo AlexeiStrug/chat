@@ -9,10 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 
-/**
- * Created by Alex on 24.07.2017.
- */
-
 public class CustomUserDetails implements UserDetails, Serializable {
 
     private String login;

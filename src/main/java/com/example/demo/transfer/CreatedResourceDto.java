@@ -2,7 +2,6 @@ package com.example.demo.transfer;
 
 /**
  * Transfer object, contains id to send in response of POST request.
- * @author Igor Rybak
  */
 public class CreatedResourceDto {
     private Integer id;

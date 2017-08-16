@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 /**
  * Thrown according to 404 HTTP status code in RESTful web services. When the requested entity by id is not found.
  *
- * @author Igor Rybak
  */
 public class NoEntityWithSuchIdCustomException extends CustomException {
     @Override

@@ -1,22 +1,24 @@
 package com.example.demo.entity;
 
-import javax.persistence.*;
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
 
-/**
- * Created by Alex on 10.08.2017.
- */
+import javax.persistence.*;
+import java.util.Objects;
+
 @Entity
-@Table(name = "channel", schema = "public")
+@Table(name = "channel", schema = "freelance")
 public class Room {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
-    @Column(name = "name", nullable = false)
-    private String name;
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private User user;
+    @JoinColumn(name = "first_user_id", referencedColumnName = "id")
+    private User firstUser;
+    @ManyToOne
+    @JoinColumn(name = "second_user_id", referencedColumnName = "id")
+    private User secondUser;
 
     public Integer getId() {
         return id;
@@ -26,19 +28,34 @@ public class Room {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public User getFirstUser() {
+        return firstUser;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstUser(User firstUser) {
+        this.firstUser = firstUser;
     }
 
-    public User getUser() {
-        return user;
+    public User getSecondUser() {
+        return secondUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSecondUser(User secondUser) {
+        this.secondUser = secondUser;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return Objects.equals(id, room.id) &&
+                Objects.equals(firstUser, room.firstUser) &&
+                Objects.equals(secondUser, room.secondUser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstUser, secondUser);
     }
 }

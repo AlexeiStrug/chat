@@ -1,5 +1,7 @@
 package com.example.demo.utils;
 
+import com.example.demo.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +34,7 @@ public final class SecurityUtilsImpl implements SecurityUtils {
         }
         return userName;
     }
+
 //
 //    /**
 //     * Check if a user is authenticated.

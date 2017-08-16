@@ -4,6 +4,8 @@ import com.example.demo.entity.Message;
 import com.example.demo.entity.Room;
 import com.example.demo.entity.User;
 import com.example.demo.reference.errors.NoUserWithSuchUsernameCustomException;
+import com.example.demo.reference.errors.UserCouldNotGetMessagesException;
+import com.example.demo.reference.errors.UserCouldNotWriteHereException;
 import com.example.demo.repositories.MessageRepository;
 import com.example.demo.repositories.RoomRepository;
 import com.example.demo.repositories.UserRepository;
@@ -15,13 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
-import static com.example.demo.utils.EntityUtil.findOneOrThrowNotFound;
-
-
-/**
- * @author Igor Rybak
- */
 @Service
 public class MessageServiceImpl implements MessageService {
     private SecurityUtils securityUtils;
@@ -47,31 +44,44 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void handleNewMessage(Integer roomId, MessageDetails messageDetails) {
-        String username = securityUtils.getCurrentUserLogin();
-        messageDetails.setUsername(username);
-        messageDetails.setDate(new Date());
-        Message message = new Message();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(NoUserWithSuchUsernameCustomException::new);
+    public void handleNewMessage(Integer userFromId, Integer userToId, MessageDetails messageDetails) {
+        List<Room> room = roomRepository.findRoomByUserFromAndUserTo(userFromId, userToId);
+//        .orElseThrow(NoUserWithSuchUsernameCustomException::new);
+        if (room.size() != 0) {
+            String username = securityUtils.getCurrentUserLogin();
+            messageDetails.setUsername(username);
+            messageDetails.setDate(new Date());
 
-        message.setUser(user);
-        message.setContent(messageDetails.getContent());
-        message.setDate(messageDetails.getDate());
+            Message message = new Message();
+            User userFrom = userRepository.findById(userFromId).orElseThrow(NoUserWithSuchUsernameCustomException::new);
+//            User userFrom = findOneOrThrowNotFound(userRepository, userFromId, User.class);
+            User userTo = userRepository.findById(userToId).orElseThrow(NoUserWithSuchUsernameCustomException::new);
+//            User userTo = findOneOrThrowNotFound(userRepository, userToId, User.class);
 
-        Room room = findOneOrThrowNotFound(roomRepository, roomId, Room.class);
-        message.setRoom(room);
-        messageRepository.save(message);
+            message.setUserFrom(userFrom);
+            message.setUserTo(userTo);
+            message.setContent(messageDetails.getContent());
+            message.setDate(messageDetails.getDate());
+
+//        Room room = findOneOrThrowNotFound(roomRepository, roomId, Room.class);
+//        message.setRoom(room);
+            messageRepository.saveAndFlush(message);
+        } else throw new UserCouldNotWriteHereException();
     }
 
     @Override
-    public Page<MessageDetails> getMessages(Integer roomId, Pageable pageable) {
-        return messageRepository.findByRoomId(roomId, pageable).map(this::mapToMessageDetail);
+    public Page<MessageDetails> getMessages(Integer userFromId, Integer userToId, Pageable pageable) {
+        List<Room> room = roomRepository.findRoomByUserFromAndUserTo(userFromId, userToId);
+//                .orElseThrow(NoUserWithSuchUsernameCustomException::new);
+        if (room.size() != 0) {
+            Page<MessageDetails> mes = messageRepository.findMessageByUserFromAndUserTo(userFromId, userToId, pageable).map(this::mapToMessageDetail);
+            return mes;
+        } else throw new UserCouldNotGetMessagesException();
     }
 
     private MessageDetails mapToMessageDetail(Message message) {
         MessageDetails details = new MessageDetails();
-        details.setUsername(message.getUser().getUsername());
+        details.setUsername(message.getUserFrom().getUsername());
         details.setContent(message.getContent());
         details.setDate(message.getDate());
         return details;

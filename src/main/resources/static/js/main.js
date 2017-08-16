@@ -16,7 +16,7 @@ function post(url, data) {
 }
 
 function appendMessage(message) {
-	var time = message.time;
+    var time = message.time;
     var fromNow = time.year +"-" + time.monthValue + "-" + time.dayOfMonth + " " + time.hour + ":" + time.minute + ":" +time.second;
     var $message = $(`<li class="clearfix">
         <div class="message-data ${message.from == userName ? 'align-left': 'align-right'}">
@@ -39,8 +39,8 @@ function getPreviousMessages() {
 function sendMessage() {
     var $messageInput = $('#messageInput');
     if($messageInput.val() ==null || $messageInput.val() ==""){
-    	alert("不允许发空消息");
-    	return;
+        alert("不允许发空消息");
+        return;
     }
     //TODO: time
     var message = {message: $messageInput.val(), from: userName, time: new Date()};
@@ -61,8 +61,8 @@ function connectWebSocket() {
     //stompClient.debug = null;
     stompClient.connect({}, (frame) => {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/' + userName + '/messages', onNewMessage);
-    });
+    stompClient.subscribe('/topic/' + userName + '/messages', onNewMessage);
+});
 }
 
 getPreviousMessages();

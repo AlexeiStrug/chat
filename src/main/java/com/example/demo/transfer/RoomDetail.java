@@ -1,18 +1,15 @@
 package com.example.demo.transfer;
 
-/**
- * @author Igor Rybak
- */
+import com.example.demo.entity.User;
+
 public class RoomDetail {
     private Integer id;
 
-    private String name;
+    private User owner;
 
-    private String connectedUsers;
+    private User connectedUsers;
 
-    private String owner;
-
-    private boolean currentUserIsOwner;
+//    private boolean currentUserIsOwner;
 
     public Integer getId() {
         return id;
@@ -22,35 +19,27 @@ public class RoomDetail {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getConnectedUsers() {
-        return connectedUsers;
-    }
-
-    public void setConnectedUsers(String connectedUsers) {
-        this.connectedUsers = connectedUsers;
-    }
-
-    public String getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
-    public boolean isCurrentUserIsOwner() {
-        return currentUserIsOwner;
+    public User getConnectedUsers() {
+        return connectedUsers;
     }
 
-    public void setCurrentUserIsOwner(boolean currentUserIsOwner) {
-        this.currentUserIsOwner = currentUserIsOwner;
+    public void setConnectedUsers(User connectedUsers) {
+        this.connectedUsers = connectedUsers;
     }
+
+//    public boolean isCurrentUserIsOwner() {
+//        return currentUserIsOwner;
+//    }
+//
+//    public void setCurrentUserIsOwner(boolean currentUserIsOwner) {
+//        this.currentUserIsOwner = currentUserIsOwner;
+//    }
 }

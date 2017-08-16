@@ -3,7 +3,6 @@ package com.example.demo.reference.errors.core;
 /**
  * A transfer object for error representation.
  *
- * @author Igor Rybak
  */
 public class ErrorInfo {
     private int errorCode;

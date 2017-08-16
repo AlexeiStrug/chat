@@ -8,12 +8,11 @@ import java.util.Optional;
 /**
  * Thrown during registration new user when the user with same username already exists.
  *
- * @author Igor Rybak
  */
 public class UserWithSuchUsernameAlreadyExistsCustomException extends CustomException {
     @Override
     public int getCode() {
-        return 1;
+        return 409;
     }
 
     @Override

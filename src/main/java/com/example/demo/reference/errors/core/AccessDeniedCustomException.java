@@ -7,7 +7,6 @@ import java.util.Optional;
 /**
  * Thrown according to 401 HTTP status code in RESTful web services.
  *
- * @author Igor Rybak
  */
 public class AccessDeniedCustomException extends CustomException {
     @Override

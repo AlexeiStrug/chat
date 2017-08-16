@@ -5,11 +5,10 @@ import org.springframework.http.HttpStatus;
 import java.util.Optional;
 
 /**
- * {@code CustomException} is supper class for exceptions to be thrown and handled in
- * {@link com.example.room.chat.controllers.ExceptionHandlerController}. Contains all required information
+ * {@code CustomException} is supper class for exceptions to be thrown.
+ * Contains all required information
  * for analyzing error from server response.
  *
- * @author Igor Rybak
  */
 public abstract class CustomException extends RuntimeException {
     private Object[] descriptionArgs;

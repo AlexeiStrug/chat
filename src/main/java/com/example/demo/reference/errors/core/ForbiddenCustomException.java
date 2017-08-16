@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 /**
  * Thrown according to 403 HTTP status code in RESTful web services.
  *
- * @author Igor Rybak
  */
 public class ForbiddenCustomException extends CustomException {
     @Override

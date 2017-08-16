@@ -3,14 +3,12 @@ package com.example.demo.entity;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Alex on 10.08.2017.
- */
 @Entity
-@Table(name = "message", schema = "public")
+@Table(name = "message", schema = "freelance")
 public class Message {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
     @Column(name = "content")
@@ -18,11 +16,11 @@ public class Message {
     @Column(name = "date")
     private Date date;
     @ManyToOne
-    @JoinColumn(name = "channel_id", referencedColumnName = "id", nullable = false)
-    private Room room;
+    @JoinColumn(name = "user_from_id", referencedColumnName = "id", nullable = false)
+    private User userFrom;
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private User user;
+    @JoinColumn(name = "user_to_id", referencedColumnName = "id", nullable = false)
+    private User userTo;
 
     public Integer getId() {
         return id;
@@ -48,19 +46,19 @@ public class Message {
         this.date = date;
     }
 
-    public Room getRoom() {
-        return room;
+    public User getUserFrom() {
+        return userFrom;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setUserFrom(User userFrom) {
+        this.userFrom = userFrom;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserTo() {
+        return userTo;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserTo(User userTo) {
+        this.userTo = userTo;
     }
 }

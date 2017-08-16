@@ -8,9 +8,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
-/**
- * Created by Alex on 24.07.2017.
- */
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
@@ -23,8 +20,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         resources.tokenStore(tokenStore);
     }
 
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.anonymous().disable().authorizeRequests().anyRequest().authenticated();
+//        http.anonymous().disable().authorizeRequests().anyRequest().authenticated();
+        http
+                .authorizeRequests()
+                .antMatchers("/chatApi/**").hasRole("ADMIN")
+                .anyRequest().permitAll();
     }
 }

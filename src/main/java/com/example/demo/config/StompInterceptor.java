@@ -18,12 +18,12 @@ import java.util.Optional;
 /**
  * Configure security context for web-socket calls.
  *
- * @author Igor Rybak
  * @see WebSocketConfig#configureClientInboundChannel
  */
 @Component
 @Qualifier("stompInterceptor")
 public class StompInterceptor extends ChannelInterceptorAdapter {
+
     @Autowired
     private TokenStore tokenStore;
 

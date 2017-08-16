@@ -11,11 +11,6 @@ import org.springframework.web.socket.config.annotation.AbstractWebSocketMessage
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
-/**
- * Web-socket configuration
- *
- * @author Igor Rybak
- */
 @Configuration
 @EnableWebSocketMessageBroker
 @ComponentScan
@@ -26,12 +21,12 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic", "/queue", "/user");
+        config.enableSimpleBroker("/topic", "/queue");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat/rooms/{room}")
+        registry.addEndpoint("/chat")
                 .setAllowedOrigins("http://localhost:8080")
                 .withSockJS();
     }
@@ -39,5 +34,10 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
         registration.setInterceptors(channelInterceptorAdapter);
+    }
+
+    @Override
+    public void configureClientOutboundChannel(ChannelRegistration registration) {
+        super.configureClientOutboundChannel(registration);
     }
 }

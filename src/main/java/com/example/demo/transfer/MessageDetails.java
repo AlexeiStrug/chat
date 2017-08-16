@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-/**
- * @author Igor Rybak
- */
 public class MessageDetails {
+
     private String content;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")

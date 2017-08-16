@@ -6,12 +6,11 @@ import org.springframework.http.HttpStatus;
 /**
  * Thrown when requested user entity by username is not found.
  *
- * @author Igor Rybak
  */
 public class NoUserWithSuchUsernameCustomException extends CustomException {
     @Override
     public int getCode() {
-        return 2;
+        return 404;
     }
 
     @Override
