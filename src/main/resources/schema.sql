@@ -59,7 +59,7 @@ ON INSERT TO oauth_client_details
 DO INSTEAD NOTHING;
 
 INSERT INTO oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove)
-VALUES ('client-with-secret', 'oauth2-resource', '$2a$10$PYK6gVI8.0sjKAu7/PWIduZL9tWZWIkX30SZauBR4.d9Q6Heij0Ae', 'read, write, trust',
+VALUES ('client-with-secret', 'oauth2-resource', '$2a$06$eJJbO521qNrtXjhSihGWZuUOHNAbfIMoM6LP8OBVWmnA0.SgBUBuy', 'global',
                               'password, authorization_code,refresh_token, implicit, client_credentials', '', '', 600,
                               2592000, '{}', '');
 DROP RULE insert_ignore_on_oauth_client_details
